@@ -12,10 +12,14 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    @if (Auth::check())
                     <li>{!! link_to_route('tasks.index', 'タスク一覧') !!}</li>
                     <li>{!! link_to_route('tasks.create', '新規タスクの投稿') !!}</li>
+                    <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
+                    @else
                     <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
-                    <li><a href="#">Login</a></li>
+                    <li>{!! link_to_route('login', 'Login') !!}</li>
+                    @endif
                 </ul>
             </div>
         </div>
