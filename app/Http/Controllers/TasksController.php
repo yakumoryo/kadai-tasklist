@@ -15,7 +15,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $user = \Auth::user();
+        $tasks = $user->tasks;
 
         return view('tasks.index', [
             'tasks' => $tasks,
@@ -67,10 +68,15 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
+        
+        if (\Auth::id() === $task->user_id) {
+            
         return view('tasks.show', [
             'task' => $task,
-        ]);
+        ]);}
+        else{
+            return redirect('/tasks');
+        }
     }
 
     /**
@@ -82,10 +88,15 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-
+        
+        if (\Auth::id() === $task->user_id) {
+            
         return view('tasks.edit', [
             'task' => $task,
-        ]);
+        ]);}
+        else{
+            return redirect('/tasks');
+        }
     }
 
     /**
